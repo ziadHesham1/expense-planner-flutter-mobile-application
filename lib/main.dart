@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
 
   final List<Transaction> transactionsList = [
     Transaction(
-      id: 't1',
+      id: 'ttt1',
       title: 'New  Shoes',
       amount: 69.99,
       date: DateTime.now(),
