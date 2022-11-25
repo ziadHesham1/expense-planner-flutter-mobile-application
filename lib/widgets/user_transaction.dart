@@ -25,7 +25,7 @@ class _UserTransactionState extends State<UserTransaction> {
       amount: 16.53,
       date: DateTime.now(),
     ),
-  ];
+    ];
 
   final titleController = TextEditingController();
 
