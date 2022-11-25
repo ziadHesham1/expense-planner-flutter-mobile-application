@@ -7,6 +7,19 @@ class NewTransaction extends StatelessWidget {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
 
+  // the function that takes input from textfield
+  // and add it to the list of tarnsaction
+  void sumbitInput() {
+    var enteredTitle = titleController.text;
+    if (enteredTitle.isEmpty || (amountController.text).isEmpty) {
+      return;
+    } else {
+      var enteredAmount = double.parse(amountController.text);
+
+      _addNewTransaction(enteredTitle, enteredAmount);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -18,19 +31,22 @@ class NewTransaction extends StatelessWidget {
           children: [
             TextField(
               controller: titleController,
+              onSubmitted: (_) => sumbitInput(),
               decoration: const InputDecoration(labelText: 'Title'),
             ),
             TextField(
               controller: amountController,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: 'Amount',),
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
+              onSubmitted: (_) => sumbitInput(),
+              decoration: const InputDecoration(
+                labelText: 'Amount',
+              ),
             ),
             TextButton(
-                onPressed: () {
-                  _addNewTransaction(titleController.text,
-                      double.parse(amountController.text));
-                },
-                child: const Text('Add')),
+              onPressed: sumbitInput,
+              child: const Text('Add Transaction'),
+            ),
           ],
         ),
       ),

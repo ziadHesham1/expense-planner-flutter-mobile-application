@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Flutter App',
       home: MyHomePage(),
     );
@@ -25,13 +25,15 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Flutter App'),
       ),
-      body: Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: const <Widget>[
-          SummeryCard(),
-          UserTransaction(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: const <Widget>[
+            SummeryCard(),
+            UserTransaction(),
+          ],
+        ),
       ),
     );
   }
