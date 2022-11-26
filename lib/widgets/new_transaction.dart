@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 
-class NewTransaction extends StatelessWidget {
+class NewTransaction extends StatefulWidget {
   final Function _addNewTransaction;
-  NewTransaction(this._addNewTransaction, {Key? key}) : super(key: key);
+  const NewTransaction(this._addNewTransaction, {Key? key}) : super(key: key);
 
+  @override
+  State<NewTransaction> createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
+
   final amountController = TextEditingController();
 
   // the function that takes input from textfield
-  // and add it to the list of tarnsaction
   void sumbitInput() {
     var enteredTitle = titleController.text;
     if (enteredTitle.isEmpty || (amountController.text).isEmpty) {
@@ -16,7 +21,8 @@ class NewTransaction extends StatelessWidget {
     } else {
       var enteredAmount = double.parse(amountController.text);
 
-      _addNewTransaction(enteredTitle, enteredAmount);
+      widget._addNewTransaction(enteredTitle, enteredAmount);
+      Navigator.of(context).pop();
     }
   }
 
