@@ -29,21 +29,29 @@ class Chart extends StatelessWidget {
     });
   }
 
+  double get maxSpending {
+    return groupedTransactionValues.fold(0, (sum, item) {
+      double a = double.parse(item[amountKey].toString());
+      return sum + a;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // ignore: avoid_print
-    print(groupedTransactionValues);
+   
     return SizedBox(
       width: double.infinity,
       child: Card(
         elevation: 6,
         margin: const EdgeInsets.all(20),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ...groupedTransactionValues.map((e) {
               String d = e[dayKey].toString();
               double a = double.parse(e[amountKey].toString());
-              return  ChartBar(d, a, 2);
+              double pct = maxSpending == 0 ? 0.0 : (a / maxSpending);
+              return ChartBar(d, a, pct);
             })
           ],
         ),
