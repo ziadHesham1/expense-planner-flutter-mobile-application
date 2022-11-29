@@ -49,22 +49,63 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+@override
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> transactions = [
-    //   Transaction(
-    //     id: 't1',
-    //     title: 'New Shoes',
-    //     amount: 69.99,
-    //     date: DateTime.now(),
-    //   ),
-    //   Transaction(
-    //     id: 't2',
-    //     title: 'Weekly Groceries',
-    //     amount: 16.53,
-    //     date: DateTime.now(),
-    //   ),
-    //
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 20,
+      date: DateTime.now()
+    ),
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 20,
+      date: DateTime.now().subtract(const Duration(days: 1)),
+    ),
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 20,
+      date: DateTime.now().subtract(const Duration(days: 1)),
+    ),
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 20,
+      date: DateTime.now().subtract(const Duration(days: 3)),
+    ),
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 20,
+      date: DateTime.now().subtract(const Duration(days: 5)),
+    ),
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 20,
+      date: DateTime.now().subtract(const Duration(days: 7)),
+    ),
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 20,
+      date: DateTime.now().subtract(const Duration(days: 9)),
+    ),
+   
   ];
+
+  List<Transaction> get _recentTranscations {
+    var aWeekAgo = DateTime.now().subtract(const Duration(days: 7));
+    return transactions.where(
+      (tx) {
+        return tx.date.isAfter(aWeekAgo) ;
+      },
+    ).toList();
+  }
+
 
   final titleController = TextEditingController();
 
@@ -103,12 +144,11 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            const Chart(),
-            // NewTransaction(_addNewTransaction),
-            TransactionList(transactions: transactions),
+            Chart(_recentTranscations),
+            TransactionList(transactions),
+          
           ],
         ),
       ),

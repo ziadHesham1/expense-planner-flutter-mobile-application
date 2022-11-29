@@ -20,7 +20,6 @@ class _NewTransactionState extends State<NewTransaction> {
       return;
     } else {
       var enteredAmount = double.parse(amountController.text);
-
       widget._addNewTransaction(enteredTitle, enteredAmount);
       Navigator.of(context).pop();
     }

@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
-  const TransactionList({Key? key, required this.transactions})
-      : super(key: key);
+  const TransactionList(this.transactions, {super.key});
 
   final List<Transaction> transactions;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 300,
+      height: 600,
       child: transactions.isEmpty
           ? Column(
               children: [
@@ -61,10 +60,12 @@ class TransactionList extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
+                          // title field
                           Text(
                             tx.title,
                             style: Theme.of(context).textTheme.headline6,
                           ),
+                          // date field
                           Text(
                             DateFormat.yMMMd().format(tx.date),
                             style: const TextStyle(
@@ -73,6 +74,7 @@ class TransactionList extends StatelessWidget {
                           ),
                         ],
                       ),
+                      
                     ],
                   ),
                 );
