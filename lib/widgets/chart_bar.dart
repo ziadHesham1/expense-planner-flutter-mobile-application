@@ -11,8 +11,7 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      fit: FlexFit.tight,
+    return Expanded(
       child: Column(
         children: [
           // spent amount text

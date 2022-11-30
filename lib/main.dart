@@ -53,11 +53,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> transactions = [
     Transaction(
-      id: 't1',
-      title: 'New Shoes',
-      amount: 2000000005,
-      date: DateTime.now()
-    ),
+        id: 't1', title: 'New Shoes', amount: 2000000005, date: DateTime.now()),
     Transaction(
       id: 't1',
       title: 'New Shoes',
@@ -94,18 +90,16 @@ class _MyHomePageState extends State<MyHomePage> {
       amount: 20,
       date: DateTime.now().subtract(const Duration(days: 9)),
     ),
-   
   ];
 
   List<Transaction> get _recentTranscations {
     var aWeekAgo = DateTime.now().subtract(const Duration(days: 7));
     return transactions.where(
       (tx) {
-        return tx.date.isAfter(aWeekAgo) ;
+        return tx.date.isAfter(aWeekAgo);
       },
     ).toList();
   }
-
 
   final titleController = TextEditingController();
 
@@ -130,6 +124,12 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
+  void _resetTransactions() {
+    setState(() {
+      transactions.clear();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,6 +140,8 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () => _startAddNewTransaction(context),
             icon: addIcon,
           ),
+          IconButton(
+              onPressed: _resetTransactions, icon: const Icon(Icons.delete))
         ],
       ),
       body: SingleChildScrollView(
@@ -148,7 +150,6 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Chart(_recentTranscations),
             TransactionList(transactions),
-          
           ],
         ),
       ),

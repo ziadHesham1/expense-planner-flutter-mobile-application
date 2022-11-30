@@ -33,52 +33,40 @@ class TransactionList extends StatelessWidget {
               itemCount: transactions.length,
               itemBuilder: (BuildContext context, int index) {
                 var tx = transactions[index];
-                return Card(
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 15,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Theme.of(context).primaryColor,
-                            width: 2,
-                          ),
-                        ),
-                        padding: const EdgeInsets.all(10),
-                        child: Text(
-                          '\$${tx.amount.toStringAsFixed(2)}',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.purple,
-                          ),
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          // title field
-                          Text(
-                            tx.title,
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                          // date field
-                          Text(
-                            DateFormat.yMMMd().format(tx.date),
-                            style: const TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                      
-                    ],
+                var amountText = Text(
+                  '\$${tx.amount.toStringAsFixed(2)}',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
                 );
-              },
+                var titleText = Text(
+                  tx.title,
+                  style: Theme.of(context).textTheme.headline6,
+                );
+                var dateText = Text(
+                  DateFormat.yMMMd().format(tx.date),
+                  style: const TextStyle(
+                    color: Colors.grey,
+                  ),
+                );
+                return Card(
+                  elevation: 5,
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: Padding(
+                        padding: const EdgeInsets.all(6),
+                        child: FittedBox(child: amountText),
+                      ),
+                    ),
+                    title: titleText,
+                    subtitle: dateText,
+                    trailing: IconButton(
+                        onPressed: () {}, icon: const Icon(Icons.delete)),
+                  ),
+                );
+                },
             ),
     );
   }
