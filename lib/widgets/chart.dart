@@ -38,22 +38,24 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
     return SizedBox(
       width: double.infinity,
       child: Card(
         elevation: 6,
         margin: const EdgeInsets.all(20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ...groupedTransactionValues.map((e) {
-              String d = e[dayKey].toString();
-              double a = double.parse(e[amountKey].toString());
-              double pct = maxSpending == 0 ? 0.0 : (a / maxSpending);
-              return ChartBar(d, a, pct);
-            })
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ...groupedTransactionValues.map((e) {
+                String d = e[dayKey].toString();
+                double a = double.parse(e[amountKey].toString());
+                double pct = maxSpending == 0 ? 0.0 : (a / maxSpending);
+                return ChartBar(d, a, pct);
+              })
+            ],
+          ),
         ),
       ),
     );

@@ -52,48 +52,48 @@ class MyHomePage extends StatefulWidget {
 @override
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> transactions = [
-    // Transaction(
-    //   id: 't1',
-    //   title: 'New Shoes',
-    //   amount: 20,
-    //   date: DateTime.now()
-    // ),
-    // Transaction(
-    //   id: 't1',
-    //   title: 'New Shoes',
-    //   amount: 20,
-    //   date: DateTime.now().subtract(const Duration(days: 1)),
-    // ),
-    // Transaction(
-    //   id: 't1',
-    //   title: 'New Shoes',
-    //   amount: 20,
-    //   date: DateTime.now().subtract(const Duration(days: 1)),
-    // ),
-    // Transaction(
-    //   id: 't1',
-    //   title: 'New Shoes',
-    //   amount: 20,
-    //   date: DateTime.now().subtract(const Duration(days: 3)),
-    // ),
-    // Transaction(
-    //   id: 't1',
-    //   title: 'New Shoes',
-    //   amount: 20,
-    //   date: DateTime.now().subtract(const Duration(days: 5)),
-    // ),
-    // Transaction(
-    //   id: 't1',
-    //   title: 'New Shoes',
-    //   amount: 20,
-    //   date: DateTime.now().subtract(const Duration(days: 7)),
-    // ),
-    // Transaction(
-    //   id: 't1',
-    //   title: 'New Shoes',
-    //   amount: 20,
-    //   date: DateTime.now().subtract(const Duration(days: 9)),
-    // ),
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 2000000005,
+      date: DateTime.now()
+    ),
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 20,
+      date: DateTime.now().subtract(const Duration(days: 1)),
+    ),
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 20,
+      date: DateTime.now().subtract(const Duration(days: 1)),
+    ),
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 20,
+      date: DateTime.now().subtract(const Duration(days: 3)),
+    ),
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 20,
+      date: DateTime.now().subtract(const Duration(days: 5)),
+    ),
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 20,
+      date: DateTime.now().subtract(const Duration(days: 7)),
+    ),
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 20,
+      date: DateTime.now().subtract(const Duration(days: 9)),
+    ),
    
   ];
 

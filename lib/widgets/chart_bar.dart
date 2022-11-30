@@ -11,13 +11,15 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(10),
+    return Flexible(
+      fit: FlexFit.tight,
       child: Column(
         children: [
           // spent amount text
-          Text(spendAmount.toStringAsFixed(0),
-              style: Theme.of(context).textTheme.headline6),
+          FittedBox(
+            child: Text('\$${spendAmount.toStringAsFixed(0)}',
+                style: Theme.of(context).textTheme.headline6),
+          ),
           const SizedBox(height: 4),
           //  spending precentage bar of total in the week
           SizedBox(
@@ -47,7 +49,7 @@ class ChartBar extends StatelessWidget {
             ),
           ),
           // day title text
-          Text(label, style: Theme.of(context).textTheme.headline6),
+          Text('$label', style: Theme.of(context).textTheme.headline6),
           const SizedBox(height: 4),
         ],
       ),
