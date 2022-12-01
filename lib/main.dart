@@ -53,39 +53,39 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> transactions = [
     Transaction(
-        id: 't1', title: 'New Shoes', amount: 2000000005, date: DateTime.now()),
+        id: 't1', title: 'New Shoes', amount: 2005, date: DateTime.now()),
     Transaction(
-      id: 't1',
+      id: 't12',
       title: 'New Shoes',
       amount: 20,
       date: DateTime.now().subtract(const Duration(days: 1)),
     ),
     Transaction(
-      id: 't1',
+      id: 't13',
       title: 'New Shoes',
       amount: 20,
       date: DateTime.now().subtract(const Duration(days: 1)),
     ),
     Transaction(
-      id: 't1',
+      id: 't14',
       title: 'New Shoes',
       amount: 20,
       date: DateTime.now().subtract(const Duration(days: 3)),
     ),
     Transaction(
-      id: 't1',
+      id: 't15',
       title: 'New Shoes',
       amount: 20,
       date: DateTime.now().subtract(const Duration(days: 5)),
     ),
     Transaction(
-      id: 't1',
+      id: 't16',
       title: 'New Shoes',
       amount: 20,
       date: DateTime.now().subtract(const Duration(days: 7)),
     ),
     Transaction(
-      id: 't1',
+      id: 't17',
       title: 'New Shoes',
       amount: 20,
       date: DateTime.now().subtract(const Duration(days: 9)),
@@ -101,16 +101,9 @@ class _MyHomePageState extends State<MyHomePage> {
     ).toList();
   }
 
-  final titleController = TextEditingController();
-
-  final amountController = TextEditingController();
-
-  void _addNewTransaction(String title, double amount) {
+  void _addNewTransaction(String title, double amount, DateTime chosenDate) {
     final newTx = Transaction(
-        id: 'T-${DateTime.now()}',
-        title: title,
-        amount: amount,
-        date: DateTime.now());
+        id: 'T-$chosenDate', title: title, amount: amount, date: chosenDate);
     setState(() {
       transactions.add(newTx);
     });
@@ -130,6 +123,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _deleteTrasaction(String id) {
+    setState(() {
+      transactions.removeWhere((tx) => tx.id == id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: addIcon,
           ),
           IconButton(
-              onPressed: _resetTransactions, icon: const Icon(Icons.delete))
+              onPressed: _resetTransactions, icon: const Icon(Icons.delete),)
         ],
       ),
       body: SingleChildScrollView(
@@ -149,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Chart(_recentTranscations),
-            TransactionList(transactions),
+            TransactionList(transactions, _deleteTrasaction),
           ],
         ),
       ),

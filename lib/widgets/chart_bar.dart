@@ -15,9 +15,12 @@ class ChartBar extends StatelessWidget {
       child: Column(
         children: [
           // spent amount text
-          FittedBox(
-            child: Text('\$${spendAmount.toStringAsFixed(0)}',
-                style: Theme.of(context).textTheme.headline6),
+          SizedBox(
+            height: 20,
+            child: FittedBox(
+              child: Text('\$${spendAmount.toStringAsFixed(0)}',
+                  style: Theme.of(context).textTheme.headline6),
+            ),
           ),
           const SizedBox(height: 4),
           //  spending precentage bar of total in the week
@@ -48,7 +51,7 @@ class ChartBar extends StatelessWidget {
             ),
           ),
           // day title text
-          Text('$label', style: Theme.of(context).textTheme.headline6),
+          Text(label, style: Theme.of(context).textTheme.headline6),
           const SizedBox(height: 4),
         ],
       ),

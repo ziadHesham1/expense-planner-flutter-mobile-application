@@ -16,9 +16,10 @@ class Chart extends StatelessWidget {
       final weekDay = DateTime.now().subtract(Duration(days: index));
       var totalSum = 0.0;
       for (var tx in _recentTranscations) {
-        if (tx.date.day == weekDay.day &&
+        var isSameDay = tx.date.day == weekDay.day &&
             tx.date.month == weekDay.month &&
-            tx.date.year == weekDay.year) {
+            tx.date.year == weekDay.year;
+        if (isSameDay) {
           totalSum += tx.amount;
         }
       }
@@ -26,7 +27,7 @@ class Chart extends StatelessWidget {
         dayKey: DateFormat().add_E().format(weekDay),
         amountKey: totalSum
       };
-    });
+    }).reversed.toList();
   }
 
   double get maxSpending {
