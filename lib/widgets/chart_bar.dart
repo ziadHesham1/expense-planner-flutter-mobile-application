@@ -11,50 +11,60 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: [
-          // spent amount text
-          SizedBox(
-            height: 20,
-            child: FittedBox(
-              child: Text('\$${spendAmount.toStringAsFixed(0)}',
-                  style: Theme.of(context).textTheme.headline6),
+    return LayoutBuilder(builder: (ctx, constraints) {
+      var chartHeight = constraints.maxHeight;
+      var spacingHeight = chartHeight * 0.05;
+      var textHeight = chartHeight * 0.15;
+
+      return Expanded(
+        child: Column(
+          children: [
+            // spent amount text
+            SizedBox(
+              height: textHeight,
+              child: FittedBox(
+                child: Text('\$${spendAmount.toStringAsFixed(0)}',
+                    style: Theme.of(context).textTheme.headline6),
+              ),
             ),
-          ),
-          const SizedBox(height: 4),
-          //  spending precentage bar of total in the week
-          SizedBox(
-            height: 60,
-            width: 10,
-            child: Stack(
-              children: [
-                // gray backround
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 1.0),
-                    color: const Color.fromRGBO(220, 220, 220, 1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                // progress indicator
-                FractionallySizedBox(
-                  heightFactor: spendingPctOfTotal,
-                  child: Container(
+            SizedBox(height: spacingHeight),
+            // bar displays the spending precentage of total in the week
+            SizedBox(
+              height: chartHeight * 0.5,
+              width: 10,
+              child: Stack(
+                children: [
+                  // gray backround
+                  Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
+                      border: Border.all(color: Colors.grey, width: 1.0),
+                      color: const Color.fromRGBO(220, 220, 220, 1),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                )
-              ],
+                  // progress indicator
+                  FractionallySizedBox(
+                    heightFactor: spendingPctOfTotal,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-          // day title text
-          Text(label, style: Theme.of(context).textTheme.headline6),
-          const SizedBox(height: 4),
-        ],
-      ),
-    );
+            SizedBox(height: spacingHeight),
+            // day title text
+            SizedBox(
+                height: textHeight,
+                child: FittedBox(
+                    child: Text(label,
+                        style: Theme.of(context).textTheme.headline6))),
+          ],
+        ),
+      );
+    });
   }
 }
