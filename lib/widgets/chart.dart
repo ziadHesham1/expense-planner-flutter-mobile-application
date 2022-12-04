@@ -51,7 +51,7 @@ class Chart extends StatelessWidget {
                 String d = e[dayKey].toString();
                 double a = double.parse(e[amountKey].toString());
                 double pct = maxSpending == 0 ? 0.0 : (a / maxSpending);
-                return ChartBar(d, a, pct);
+                return Expanded(child: ChartBar(d, a, pct));
               })
             ],
           ),

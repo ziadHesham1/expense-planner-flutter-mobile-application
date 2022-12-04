@@ -53,47 +53,49 @@ class MyHomePage extends StatefulWidget {
 
 @override
 class _MyHomePageState extends State<MyHomePage> {
-  // final List<Transaction> transactions = [
-  //   Transaction(
-  //       id: 't1', title: 'New Shoes', amount: 2005, date: DateTime.now()),
-  //   Transaction(
-  //     id: 't12',
-  //     title: 'New Shoes',
-  //     amount: 20,
-  //     date: DateTime.now().subtract(const Duration(days: 1)),
-  //   ),
-  //   Transaction(
-  //     id: 't13',
-  //     title: 'New Shoes',
-  //     amount: 20,
-  //     date: DateTime.now().subtract(const Duration(days: 1)),
-  //   ),
-  //   Transaction(
-  //     id: 't14',
-  //     title: 'New Shoes',
-  //     amount: 20,
-  //     date: DateTime.now().subtract(const Duration(days: 3)),
-  //   ),
-  //   Transaction(
-  //     id: 't15',
-  //     title: 'New Shoes',
-  //     amount: 20,
-  //     date: DateTime.now().subtract(const Duration(days: 5)),
-  //   ),
-  //   Transaction(
-  //     id: 't16',
-  //     title: 'New Shoes',
-  //     amount: 20,
-  //     date: DateTime.now().subtract(const Duration(days: 7)),
-  //   ),
-  //   Transaction(
-  //     id: 't17',
-  //     title: 'New Shoes',
-  //     amount: 20,
-  //     date: DateTime.now().subtract(const Duration(days: 9)),
-  //   ),
-  // ];
-  List<Transaction> get transactions {
+  // List<Transaction> transactions = [];
+  final List<Transaction> transactions = [
+    Transaction(
+        id: 't1', title: 'New Shoes1', amount: 2005, date: DateTime.now()),
+    Transaction(
+      id: 't12',
+      title: 'New Shoes2',
+      amount: 20,
+      date: DateTime.now().subtract(const Duration(days: 1)),
+    ),
+    Transaction(
+      id: 't13',
+      title: 'New Shoes3',
+      amount: 20,
+      date: DateTime.now().subtract(const Duration(days: 1)),
+    ),
+    Transaction(
+      id: 't14',
+      title: 'New Shoes4',
+      amount: 20,
+      date: DateTime.now().subtract(const Duration(days: 3)),
+    ),
+    Transaction(
+      id: 't15',
+      title: 'New Shoes5',
+      amount: 20,
+      date: DateTime.now().subtract(const Duration(days: 5)),
+    ),
+    Transaction(
+      id: 't16',
+      title: 'New Shoes6',
+      amount: 20,
+      date: DateTime.now().subtract(const Duration(days: 7)),
+    ),
+    Transaction(
+      id: 't17',
+      title: 'New Shoes7',
+      amount: 20,
+      date: DateTime.now().subtract(const Duration(days: 9)),
+    ),
+  ];
+  
+ /*  List<Transaction> get transactions {
     var today = DateTime.now();
     return List.generate(10, (index) {
       double currentMinute = double.parse(DateFormat.m().format(today));
@@ -107,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     });
   }
-
+ */
   List<Transaction> get _recentTranscations {
     DateTime aWeekAgo = DateTime.now().subtract(const Duration(days: 7));
     return transactions.where(
@@ -145,25 +147,54 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  var showChart = true;
+
   @override
   Widget build(BuildContext context) {
+    // storing appbar into a variable to get its height using preferredSize
     var appBar2 = AppBar(
       title: const Text('Flutter App'),
       actions: [
         IconButton(
           onPressed: () => _startAddNewTransaction(context),
           icon: addIcon,
+          tooltip: 'Add New Transaction',
         ),
         IconButton(
           onPressed: _resetTransactions,
           icon: const Icon(Icons.delete),
+          tooltip:'Erase All Transactions'
         )
       ],
     );
+
+    // getting appbar height value using preferredSize
     var appbarHeight = appBar2.preferredSize.height;
+    // getting height of app defult padding from MediaQuery
     var paddingHeight = MediaQuery.of(context).padding.top;
+    // getting height of the body depending of the device size from MediaQuery
     var bodyHeight =
         MediaQuery.of(context).size.height - appbarHeight - paddingHeight;
+
+    // getting the orientation of the device from MediaQuery
+    bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    /* storing the widget that contains the list of transaction into var
+    bec it's used multiple times in the body */
+    var txlistWidget = SizedBox(
+      height: bodyHeight * 0.7,
+      child: TransactionList(transactions, _deleteTrasaction),
+    );
+
+    /* storing the widget that contains the list of transaction into function
+    bec it's used multiple times in the body and the height is not the same */
+    SizedBox chartWidget(double h) {
+      return SizedBox(
+        height: h,
+        child: Chart(_recentTranscations),
+      );
+    }
 
     return Scaffold(
       appBar: appBar2,
@@ -171,19 +202,34 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            SizedBox(
-              height: bodyHeight * 0.3,
-              child: Chart(_recentTranscations),
-            ),
-            SizedBox(
-              height: bodyHeight * 0.7,
-              child: TransactionList(transactions, _deleteTrasaction),
-            ),
+            /* showing the switch that show and hide the chart
+            only when the device is on landscape mode */
+            if (isLandscape)
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                const Text('Show Chart'),
+                Switch(
+                    value: showChart,
+                    onChanged: (val) {
+                      setState(() {
+                        showChart = val;
+                      });
+                    }),
+              ]),
+
+            // if the mobile isn't in landscape mode, show the chart and list together
+            if (!isLandscape) chartWidget(bodyHeight * 0.3),
+            if (!isLandscape) txlistWidget,
+
+            /* if the mobile is in landscape mode show the card only or the list only
+             depending on the switch state */
+            if (isLandscape)
+              showChart ? chartWidget(bodyHeight * 0.7) : txlistWidget,
           ],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
+        tooltip: 'Add New Transaction',
         onPressed: () => _startAddNewTransaction(context),
         child: addIcon,
       ),

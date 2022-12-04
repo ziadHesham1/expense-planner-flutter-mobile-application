@@ -11,23 +11,26 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return transactions.isEmpty
-        ? Column(
-            children: [
-              Text(
-                'No transaction added yet!',
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                height: 200,
-                child: Image.asset(
-                  'assets/img/wait.png',
-                  // waiting.png
-                  fit: BoxFit.cover,
+        ? LayoutBuilder(builder: (ctx, constraints) {
+            var widgetHeight = constraints.maxHeight;
+            return Column(
+              children: [
+                Text(
+                  'No transaction added yet!',
+                  style: Theme.of(context).textTheme.headline6,
                 ),
-              ),
-            ],
-          )
+                const SizedBox(height: 20),
+                SizedBox(
+                  height: widgetHeight * 0.7,
+                  child: Image.asset(
+                    'assets/img/wait.png',
+                    // waiting.png
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ],
+            );
+          })
         : ListView.builder(
             itemCount: transactions.length,
             itemBuilder: (BuildContext context, int index) {
@@ -87,6 +90,7 @@ class TransactionList extends StatelessWidget {
                   trailing: IconButton(
                       onPressed: () {
                         _deleteTrasaction(tx.id);
+                        showToast('${tx.title}\'s transaction deleted',context: context);
                       },
                       icon: const Icon(Icons.delete),
                       color: Theme.of(context).errorColor),

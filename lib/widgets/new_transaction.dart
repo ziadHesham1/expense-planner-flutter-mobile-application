@@ -49,49 +49,58 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextField(
-              controller: titleController,
-              onSubmitted: (_) => _sumbitInput(),
-              decoration: const InputDecoration(labelText: 'Title'),
-            ),
-            TextField(
-              controller: amountController,
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-              onSubmitted: (_) => _sumbitInput(),
-              decoration: const InputDecoration(
-                labelText: 'Amount',
+    var keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Container(
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            // because in smaller screens keyboard make textfeild disappears
+            bottom: keyboardHeight + 10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              TextField(
+                controller: titleController,
+                onSubmitted: (_) => _sumbitInput(),
+                decoration: const InputDecoration(labelText: 'Title'),
               ),
-            ),
-            Row(
-              // mainAxisAlignment: M  ainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                    child: Text(
-                        'Date : ${DateFormat().add_yMd().format(_selectedDate)}')),
-                TextButton(
-                  onPressed: pesentDatePicker,
-                  child: const Text(
-                    'Choose Date',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+              TextField(
+                controller: amountController,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                onSubmitted: (_) => _sumbitInput(),
+                decoration: const InputDecoration(
+                  labelText: 'Amount',
+                ),
+              ),
+              Row(
+                // mainAxisAlignment: M  ainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                      child: Text(
+                          'Date : ${DateFormat().add_yMd().format(_selectedDate)}')),
+                  TextButton(
+                    onPressed: pesentDatePicker,
+                    child: const Text(
+                      'Choose Date',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            ElevatedButton(
-              onPressed: _sumbitInput,
-              child: const Text('Add Transaction'),
-            ),
-          ],
+                ],
+              ),
+              ElevatedButton(
+                onPressed: _sumbitInput,
+                child: const Text('Add Transaction'),
+              ),
+            ],
+          ),
         ),
       ),
     );
