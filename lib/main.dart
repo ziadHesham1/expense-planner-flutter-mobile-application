@@ -6,16 +6,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_planner/models/transaction.dart';
 import 'package:expense_planner/widgets/transaction_list.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:intl/intl.dart';
 
 void main() => runApp(const MyApp());
+
+var isIOS = Platform.isIOS;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // ignore: prefer_const_constructors
+
     return MaterialApp(
       title: 'Personal Expenses',
       home: const MyHomePage(),
@@ -98,21 +100,6 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
   ];
 
-  /*  List<Transaction> get transactions {
-    var today = DateTime.now();
-    return List.generate(10, (index) {
-      double currentMinute = double.parse(DateFormat.m().format(today));
-      var txDate = today.subtract(Duration(days: index));
-      return Transaction(
-        id: 'id-$today',
-        title: DateFormat.EEEE().format(txDate),
-        amount: currentMinute * index + 1,
-        // amount: 1.0,
-        date: txDate,
-      );
-    });
-  }
- */
   List<Transaction> get _recentTranscations {
     DateTime aWeekAgo = DateTime.now().subtract(const Duration(days: 7));
     return transactions.where(
@@ -154,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var isIOS = Platform.isIOS;
+// ------------- Appbars ----------------------
 
     // storing appbar into a variable to get its height using preferredSize
     const appTitle = 'Personal Expenses';
@@ -175,13 +162,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
     var iosNavbar = CupertinoNavigationBar(
         middle: const Text(appTitle),
-        trailing: CupertinoButton(
-          onPressed: (() => _startAddNewTransaction(context)),
-          child: const Text('data'),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GestureDetector(
+              onTap: (() => _startAddNewTransaction(context)),
+              child: const Icon(CupertinoIcons.add),
+            ),
+          ],
         ));
 
-    // var usedAppbar = isIOS ? iosNavbar : androidAppBar;
-    
+// ------------- MediaQuery ----------------------
+
     // defining MediaQuery in a variable because its being used muliple times in this file
     var mediaQuery = MediaQuery.of(context);
 
@@ -198,52 +190,66 @@ class _MyHomePageState extends State<MyHomePage> {
     // getting the orientation of the device from MediaQuery
     bool isLandscape = mediaQuery.orientation == Orientation.landscape;
 
+// ------------- Body variables & functions ----------------------
+
     /* storing the widget that contains the list of transaction into var
     bec it's used multiple times in the body */
     var txlistWidget = SizedBox(
       height: bodyHeight * 0.7,
       child: TransactionList(transactions, _deleteTrasaction),
     );
-
-    /* storing the widget that contains the list of transaction into function
-    bec it's used multiple times in the body and the height is not the same */
-    SizedBox chartWidget(double h) {
-      return SizedBox(
-        height: h,
-        child: Chart(_recentTranscations),
-      );
+    List<Widget> buildPortraitContent(h, txlistWidget) {
+      return [
+        // if the mobile isn't in landscape mode, show the chart and list together
+        // if (!isLandscape)
+        SizedBox(
+          height: h,
+          child: Chart(_recentTranscations),
+        ),
+        txlistWidget,
+      ];
     }
 
-    var pageBody = SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          /* showing the switch that show and hide the chart
+    List<Widget> buildLandscapeContent(h, txlistWidget) {
+      return [
+        /* showing the switch that show and hide the chart
             only when the device is on landscape mode */
-          if (isLandscape)
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              const Text('Show Chart'),
-              Switch(
-                  value: showChart,
-                  onChanged: (val) {
-                    setState(() {
-                      showChart = val;
-                    });
-                  }),
-            ]),
-
-          // if the mobile isn't in landscape mode, show the chart and list together
-          if (!isLandscape) chartWidget(bodyHeight * 0.3),
-          if (!isLandscape) txlistWidget,
-
-          /* if the mobile is in landscape mode show the card only or the list only
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text('Show Chart', style: Theme.of(context).textTheme.headline6),
+          Switch(
+              value: showChart,
+              onChanged: (val) {
+                setState(() {
+                  showChart = val;
+                });
+              }),
+        ]),
+        /* if the mobile is in landscape mode show the card only or the list only
              depending on the switch state */
-          if (isLandscape)
-            showChart ? chartWidget(bodyHeight * 0.7) : txlistWidget,
-        ],
+        showChart
+            ? SizedBox(
+                height: h,
+                child: Chart(_recentTranscations),
+              )
+            : txlistWidget,
+      ];
+    }
+
+    var pageBody = SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            if (isLandscape)
+              ...buildLandscapeContent(bodyHeight * 0.7, txlistWidget),
+            if (!isLandscape)
+              ...buildPortraitContent(bodyHeight * 0.3, txlistWidget)
+          ],
+        ),
       ),
     );
 
+// ------------- Scaffolds ----------------------
     return Platform.isIOS
         ? CupertinoPageScaffold(
             navigationBar: iosNavbar,
