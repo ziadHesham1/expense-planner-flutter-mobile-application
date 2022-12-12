@@ -1,5 +1,5 @@
-import 'package:expense_planner/widgets/adabtive_button.dart';
-import 'package:expense_planner/widgets/adabtive_textfeild.dart';
+import 'package:expense_planner/widgets/adaptive_button.dart';
+import 'package:expense_planner/widgets/adaptive_textfeild.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:intl/intl.dart';
@@ -69,11 +69,11 @@ class _NewTransactionState extends State<NewTransaction> {
               /* controller: titleController,
                 onSubmitted: (_) => _sumbitInput(),
                 decoration: const InputDecoration(labelText: 'Title'), */
-              AdabtiveTextFeild(
+              AdaptiveTextField(
                 label: 'Title',
                 aController: titleController,
                 inputAction: TextInputAction.next,
-                sumbitInput: _sumbitInput,
+                submitInput: _sumbitInput,
                 textInputType: TextInputType.name,
               ),
 
@@ -82,11 +82,11 @@ class _NewTransactionState extends State<NewTransaction> {
                     const TextInputType.numberWithOptions(decimal: true),
                 onSubmitted: (_) => _sumbitInput(),
                 decoration: const InputDecoration(labelText: 'Amount'), */
-              AdabtiveTextFeild(
+              AdaptiveTextField(
                 label: 'Amount',
                 aController: amountController,
                 inputAction: TextInputAction.next,
-                sumbitInput: _sumbitInput,
+                submitInput: _sumbitInput,
                 textInputType:
                     const TextInputType.numberWithOptions(decimal: true),
               ),
@@ -107,7 +107,7 @@ class _NewTransactionState extends State<NewTransaction> {
                   ),
                 ],
               ),
-              AdabtiveButton(
+              AdaptiveButton(
                 sumbitInput: _sumbitInput,
                 label: 'Add Transaction',
               ),

@@ -2,11 +2,11 @@ import 'package:expense_planner/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AdabtiveButton extends StatelessWidget {
+class AdaptiveButton extends StatelessWidget {
   final Function() sumbitInput;
   final String label;
-    
-  const AdabtiveButton({
+
+  const AdaptiveButton({
     required this.sumbitInput,
     required this.label,
     super.key,

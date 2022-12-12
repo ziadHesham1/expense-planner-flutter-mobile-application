@@ -2,19 +2,19 @@ import 'package:expense_planner/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-class AdabtiveTextFeild extends StatelessWidget {
+class AdaptiveTextField extends StatelessWidget {
   final TextEditingController aController;
-  final Function sumbitInput;
+  final Function submitInput;
   final TextInputAction inputAction;
 
   final String label;
   final TextInputType textInputType;
 
-  const AdabtiveTextFeild(
+  const AdaptiveTextField(
       {required this.label,
       required this.aController,
       required this.inputAction,
-      required this.sumbitInput,
+      required this.submitInput,
       required this.textInputType,
       super.key});
 
@@ -26,7 +26,7 @@ class AdabtiveTextFeild extends StatelessWidget {
             textInputAction: inputAction,
             keyboardType: textInputType,
             controller: aController,
-            onSubmitted: (_) => sumbitInput(),
+            onSubmitted: (_) => submitInput(),
             placeholder: label,
           )
         // if the app is running on IOS
@@ -34,7 +34,7 @@ class AdabtiveTextFeild extends StatelessWidget {
             textInputAction: inputAction,
             keyboardType: textInputType,
             controller: aController,
-            onSubmitted: (_) => sumbitInput(),
+            onSubmitted: (_) => submitInput(),
             decoration: InputDecoration(labelText: label),
           );
   }
