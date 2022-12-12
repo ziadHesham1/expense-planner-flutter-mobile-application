@@ -98,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
   ];
 
-  List<Transaction> get _recentTranscations {
+  List<Transaction> get _recentTransactions {
     DateTime aWeekAgo = DateTime.now().subtract(const Duration(days: 7));
     return transactions.where(
       (tx) {
@@ -129,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _deleteTrasaction(String id) {
+  void _deleteTransaction(String id) {
     setState(() {
       transactions.removeWhere((tx) => tx.id == id);
     });
@@ -172,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 // ------------- MediaQuery ----------------------
 
-    // defining MediaQuery in a variable because its being used muliple times in this file
+    // defining MediaQuery in a variable because its being used multiple times in this file
     var mediaQuery = MediaQuery.of(context);
 
     // getting appbar height value using preferredSize
@@ -180,7 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ? iosNavbar.preferredSize.height
         : androidAppBar.preferredSize.height;
 
-    // getting height of app defult padding from MediaQuery
+    // getting height of app default padding from MediaQuery
     var paddingHeight = mediaQuery.padding.top;
     // getting height of the body depending of the device size from MediaQuery
     var bodyHeight = mediaQuery.size.height - appbarHeight - paddingHeight;
@@ -194,7 +194,7 @@ class _MyHomePageState extends State<MyHomePage> {
     bec it's used multiple times in the body */
     var txlistWidget = SizedBox(
       height: bodyHeight * 0.7,
-      child: TransactionList(transactions, _deleteTrasaction),
+      child: TransactionList(transactions, _deleteTransaction),
     );
     List<Widget> buildPortraitContent(h, txlistWidget) {
       return [
@@ -202,7 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // if (!isLandscape)
         SizedBox(
           height: h,
-          child: Chart(_recentTranscations),
+          child: Chart(_recentTransactions),
         ),
         txlistWidget,
       ];
@@ -235,7 +235,7 @@ class _MyHomePageState extends State<MyHomePage> {
         showChart
             ? SizedBox(
                 height: h,
-                child: Chart(_recentTranscations),
+                child: Chart(_recentTransactions),
               )
             : txlistWidget,
       ];

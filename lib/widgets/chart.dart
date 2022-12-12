@@ -6,16 +6,16 @@ import '../models/transaction.dart';
 
 class Chart extends StatelessWidget {
   // ignore: unused_field
-  final List<Transaction> _recentTranscations;
+  final List<Transaction> _recentTransactions;
 
-  const Chart(this._recentTranscations, {super.key});
+  const Chart(this._recentTransactions, {super.key});
   final dayKey = 'day';
   final amountKey = 'amount';
   List<Map<String, Object>> get groupedTransactionValues {
     return List.generate(7, (index) {
       final weekDay = DateTime.now().subtract(Duration(days: index));
       var totalSum = 0.0;
-      for (var tx in _recentTranscations) {
+      for (var tx in _recentTransactions) {
         var isSameDay = tx.date.day == weekDay.day &&
             tx.date.month == weekDay.month &&
             tx.date.year == weekDay.year;

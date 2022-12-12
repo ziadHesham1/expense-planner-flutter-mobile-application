@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AdaptiveButton extends StatelessWidget {
-  final Function() sumbitInput;
+  final Function() submitInput;
   final String label;
 
   const AdaptiveButton({
-    required this.sumbitInput,
+    required this.submitInput,
     required this.label,
     super.key,
   });
@@ -16,12 +16,12 @@ class AdaptiveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return isIOS
         ? CupertinoButton(
-            onPressed: sumbitInput,
+            onPressed: submitInput,
             color: Theme.of(context).primaryColor,
             child: Text(label),
           )
         : ElevatedButton(
-            onPressed: sumbitInput,
+            onPressed: submitInput,
             child: Text(label),
           );
   }

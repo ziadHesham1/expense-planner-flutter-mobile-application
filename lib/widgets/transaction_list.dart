@@ -3,10 +3,10 @@ import 'package:expense_planner/widgets/transaction_item.dart';
 import 'package:flutter/material.dart';
 
 class TransactionList extends StatelessWidget {
-  final Function _deleteTrasaction;
+  final Function _deleteTransaction;
   final List<Transaction> transactions;
 
-  const TransactionList(this.transactions, this._deleteTrasaction, {super.key});
+  const TransactionList(this.transactions, this._deleteTransaction, {super.key});
   @override
   Widget build(BuildContext context) {
     return transactions.isEmpty
@@ -36,7 +36,7 @@ class TransactionList extends StatelessWidget {
               var tx = transactions[index];
               return ItemTransaction(
                 tx: tx,
-                deleteTrasaction: _deleteTrasaction,
+                deleteTransaction: _deleteTransaction,
               );
             },
           );

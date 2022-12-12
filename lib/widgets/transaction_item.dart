@@ -9,13 +9,13 @@ class ItemTransaction extends StatelessWidget {
     Key? key,
     required this.tx,
     // required this.bodyWidth,
-    required Function deleteTrasaction,
-  })  : _deleteTrasaction = deleteTrasaction,
+    required Function deleteTransaction,
+  })  : _deleteTransaction = deleteTransaction,
         super(key: key);
 
   final Transaction tx;
   // final double bodyWidth;
-  final Function _deleteTrasaction;
+  final Function _deleteTransaction;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class ItemTransaction extends StatelessWidget {
         trailing: bodyWidth > 500
             ? TextButton.icon(
                 onPressed: () {
-                  _deleteTrasaction(tx.id);
+                  _deleteTransaction(tx.id);
                   showToast('${tx.title}\'s transaction deleted',
                       context: context);
                 },
@@ -85,7 +85,7 @@ class ItemTransaction extends StatelessWidget {
                 onPressed: () {
                  showToast('${tx.title}\'s transaction deleted',
                       context: context);
-                  _deleteTrasaction(tx.id);
+                  _deleteTransaction(tx.id);
                 },
                 icon: const Icon(Icons.delete),
                 // color: Theme.of(context).errorColo

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ChartBar extends StatelessWidget {
   final String label;
   final double spendAmount;
-  // pecentage -> pct
+  // percentage -> pct
   final double spendingPctOfTotal;
 
   const ChartBar(this.label, this.spendAmount, this.spendingPctOfTotal,
@@ -29,13 +29,13 @@ class ChartBar extends StatelessWidget {
 
           
           SizedBox(height: spacingHeight),
-          // bar displays the spending precentage of total in the week
+          // bar displays the spending percentage of total in the week
           SizedBox(
             height: chartHeight * 0.5,
             width: 10,
             child: Stack(
               children: [
-                // gray backround
+                // gray background
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey, width: 1.0),

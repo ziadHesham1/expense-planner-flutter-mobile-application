@@ -1,5 +1,5 @@
 import 'package:expense_planner/widgets/adaptive_button.dart';
-import 'package:expense_planner/widgets/adaptive_textfeild.dart';
+import 'package:expense_planner/widgets/adaptive_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:intl/intl.dart';
@@ -18,7 +18,7 @@ class _NewTransactionState extends State<NewTransaction> {
   final amountController = TextEditingController();
 
   // the function that takes input from textfield
-  void _sumbitInput() {
+  void _submitInput() {
     var enteredTitle = titleController.text;
     if (enteredTitle.isEmpty ||
         (amountController.text).isEmpty ||
@@ -33,7 +33,7 @@ class _NewTransactionState extends State<NewTransaction> {
   }
 
   var _selectedDate = DateTime.now();
-  void pesentDatePicker() {
+  void presentDatePicker() {
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -60,33 +60,33 @@ class _NewTransactionState extends State<NewTransaction> {
             top: 10,
             left: 10,
             right: 10,
-            // because in smaller screens keyboard make textfeild disappears
+            // because in smaller screens keyboard make textfield disappears
             bottom: keyboardHeight + 10,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               /* controller: titleController,
-                onSubmitted: (_) => _sumbitInput(),
+                onSubmitted: (_) => _submitInput(),
                 decoration: const InputDecoration(labelText: 'Title'), */
               AdaptiveTextField(
                 label: 'Title',
                 aController: titleController,
                 inputAction: TextInputAction.next,
-                submitInput: _sumbitInput,
+                submitInput: _submitInput,
                 textInputType: TextInputType.name,
               ),
 
               /*  controller: amountController,
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
-                onSubmitted: (_) => _sumbitInput(),
+                onSubmitted: (_) => _submitInput(),
                 decoration: const InputDecoration(labelText: 'Amount'), */
               AdaptiveTextField(
                 label: 'Amount',
                 aController: amountController,
                 inputAction: TextInputAction.next,
-                submitInput: _sumbitInput,
+                submitInput: _submitInput,
                 textInputType:
                     const TextInputType.numberWithOptions(decimal: true),
               ),
@@ -97,7 +97,7 @@ class _NewTransactionState extends State<NewTransaction> {
                       child: Text(
                           'Date : ${DateFormat().add_yMd().format(_selectedDate)}')),
                   TextButton(
-                    onPressed: pesentDatePicker,
+                    onPressed: presentDatePicker,
                     child: const Text(
                       'Choose Date',
                       style: TextStyle(
@@ -108,7 +108,7 @@ class _NewTransactionState extends State<NewTransaction> {
                 ],
               ),
               AdaptiveButton(
-                sumbitInput: _sumbitInput,
+                submitInput: _submitInput,
                 label: 'Add Transaction',
               ),
             ],
