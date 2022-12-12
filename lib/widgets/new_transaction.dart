@@ -1,3 +1,5 @@
+import 'package:expense_planner/widgets/adabtive_button.dart';
+import 'package:expense_planner/widgets/adabtive_textfeild.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:intl/intl.dart';
@@ -12,7 +14,7 @@ class NewTransaction extends StatefulWidget {
 }
 
 class _NewTransactionState extends State<NewTransaction> {
-  final titleController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
   final amountController = TextEditingController();
 
   // the function that takes input from textfield
@@ -64,22 +66,32 @@ class _NewTransactionState extends State<NewTransaction> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              TextField(
-                controller: titleController,
+              /* controller: titleController,
                 onSubmitted: (_) => _sumbitInput(),
-                decoration: const InputDecoration(labelText: 'Title'),
+                decoration: const InputDecoration(labelText: 'Title'), */
+              AdabtiveTextFeild(
+                label: 'Title',
+                aController: titleController,
+                inputAction: TextInputAction.next,
+                sumbitInput: _sumbitInput,
+                textInputType: TextInputType.name,
               ),
-              TextField(
-                controller: amountController,
+
+              /*  controller: amountController,
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
                 onSubmitted: (_) => _sumbitInput(),
-                decoration: const InputDecoration(
-                  labelText: 'Amount',
-                ),
+                decoration: const InputDecoration(labelText: 'Amount'), */
+              AdabtiveTextFeild(
+                label: 'Amount',
+                aController: amountController,
+                inputAction: TextInputAction.next,
+                sumbitInput: _sumbitInput,
+                textInputType:
+                    const TextInputType.numberWithOptions(decimal: true),
               ),
               Row(
-                // mainAxisAlignment: M  ainAxisAlignment.spaceBetween,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
                       child: Text(
@@ -95,9 +107,9 @@ class _NewTransactionState extends State<NewTransaction> {
                   ),
                 ],
               ),
-              ElevatedButton(
-                onPressed: _sumbitInput,
-                child: const Text('Add Transaction'),
+              AdabtiveButton(
+                sumbitInput: _sumbitInput,
+                label: 'Add Transaction',
               ),
             ],
           ),

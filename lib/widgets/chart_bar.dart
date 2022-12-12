@@ -26,6 +26,8 @@ class ChartBar extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline6),
             ),
           ),
+
+          
           SizedBox(height: spacingHeight),
           // bar displays the spending precentage of total in the week
           SizedBox(

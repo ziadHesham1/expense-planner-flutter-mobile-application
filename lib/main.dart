@@ -1,23 +1,21 @@
+import 'package:expense_planner/models/transaction.dart';
 import 'dart:io';
 
 import 'package:expense_planner/widgets/new_transaction.dart';
 import 'package:expense_planner/widgets/chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:expense_planner/models/transaction.dart';
 import 'package:expense_planner/widgets/transaction_list.dart';
 
 void main() => runApp(const MyApp());
 
-var isIOS = Platform.isIOS;
+var isIOS = !Platform.isIOS;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // ignore: prefer_const_constructors
-
     return MaterialApp(
       title: 'Personal Expenses',
       home: const MyHomePage(),
@@ -216,13 +214,21 @@ class _MyHomePageState extends State<MyHomePage> {
             only when the device is on landscape mode */
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text('Show Chart', style: Theme.of(context).textTheme.headline6),
-          Switch(
-              value: showChart,
-              onChanged: (val) {
-                setState(() {
-                  showChart = val;
-                });
-              }),
+          isIOS
+              ? CupertinoSwitch(
+                  value: showChart,
+                  onChanged: (val) {
+                    setState(() {
+                      showChart = val;
+                    });
+                  })
+              : Switch(
+                  value: showChart,
+                  onChanged: (val) {
+                    setState(() {
+                      showChart = val;
+                    });
+                  }),
         ]),
         /* if the mobile is in landscape mode show the card only or the list only
              depending on the switch state */
@@ -235,7 +241,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ];
     }
 
-    var pageBody = SafeArea(
+  var pageBody = SafeArea(
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -243,14 +249,15 @@ class _MyHomePageState extends State<MyHomePage> {
             if (isLandscape)
               ...buildLandscapeContent(bodyHeight * 0.7, txlistWidget),
             if (!isLandscape)
-              ...buildPortraitContent(bodyHeight * 0.3, txlistWidget)
+              ...buildPortraitContent(bodyHeight * 0.3, txlistWidget),
+            
           ],
         ),
-      ),
+      ),    
     );
 
 // ------------- Scaffolds ----------------------
-    return Platform.isIOS
+    return isIOS
         ? CupertinoPageScaffold(
             navigationBar: iosNavbar,
             child: pageBody,
