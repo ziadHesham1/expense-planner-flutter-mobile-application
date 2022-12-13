@@ -27,7 +27,6 @@ class ChartBar extends StatelessWidget {
             ),
           ),
 
-          
           SizedBox(height: spacingHeight),
           // bar displays the spending percentage of total in the week
           SizedBox(
@@ -59,10 +58,11 @@ class ChartBar extends StatelessWidget {
           SizedBox(height: spacingHeight),
           // day title text
           SizedBox(
-              height: textHeight,
-              child: FittedBox(
-                  child: Text(label,
-                      style: Theme.of(context).textTheme.headline6))),
+            height: textHeight,
+            child: FittedBox(
+                child:
+                    Text(label, style: Theme.of(context).textTheme.headline6)),
+          ),
         ],
       );
     });

@@ -9,7 +9,7 @@ import 'package:expense_planner/widgets/transaction_list.dart';
 
 void main() => runApp(const MyApp());
 
-var isIOS = !Platform.isIOS;
+var isIOS = Platform.isIOS;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
