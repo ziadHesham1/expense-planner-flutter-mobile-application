@@ -69,7 +69,7 @@ class ItemTransaction extends StatelessWidget {
         title: titleText,
         subtitle: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [dateText, time],
+          children: [Expanded(child: dateText), time],
         ),
         trailing: bodyWidth > 500
             ? TextButton.icon(
@@ -83,7 +83,7 @@ class ItemTransaction extends StatelessWidget {
               )
             : IconButton(
                 onPressed: () {
-                 showToast('${tx.title}\'s transaction deleted',
+                  showToast('${tx.title}\'s transaction deleted',
                       context: context);
                   _deleteTransaction(tx.id);
                 },
